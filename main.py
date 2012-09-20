@@ -13,8 +13,9 @@ SOFT_HYPHEN = u'\u00AD'
 
 def parse_xml(input_file):
     dom = parse(input_file)
-    for node in dom.getElementsByTagName('p'):
-        insert_hyphens(node)
+    for tag in ('p', 'v'):
+        for node in dom.getElementsByTagName(tag):
+            insert_hyphens(node)
     return dom
 
 def insert_hyphens(node):
