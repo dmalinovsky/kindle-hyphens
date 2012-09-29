@@ -51,9 +51,11 @@ class Hyphenator:
         """Returns a word with separators inserted as hyphens."""
         result = u''
         buf = u''
-        word += u'.'
+        word += u'$'
+        url_splits = (u'/', u'.')
         for c in word:
-            if c.isalpha():
+            # Split URls: example.-com/-test/-page.-html
+            if c.isalpha() or (c in url_splits and buf):
                 buf += c
             else:
                 if len(buf):
