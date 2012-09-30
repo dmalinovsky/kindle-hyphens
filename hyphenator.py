@@ -52,10 +52,9 @@ class Hyphenator:
         result = u''
         buf = u''
         word += u'$'
-        url_splits = (u'/', u'.')
         for c in word:
-            # Split URls: example.-com/-test/-page.-html
-            if c.isalpha() or (c in url_splits and buf):
+            # Split URls: example.com/-test/-page.html
+            if c.isalpha() or (c == u'/' and buf):
                 buf += c
             else:
                 if len(buf):
