@@ -34,9 +34,10 @@ if __name__ == '__main__':
     if len(sys.argv) <= 2:
         print 'Usage: %s input_fb2_file output_fb2_file' % sys.argv[0]
         sys.exit(1)
-    print 'Processing FB2 file...',
     input_file = sys.argv[1]
     output_file = sys.argv[2]
+    print 'Processing FB2 file %s...' % input_file,
+    sys.stdout.flush()
     dom = parse_xml(input_file)
     with codecs.open(output_file, encoding='utf-8', mode='w') as f:
         dom.writexml(f, encoding='utf-8')
