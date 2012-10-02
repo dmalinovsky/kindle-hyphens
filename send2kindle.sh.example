@@ -1,4 +1,3 @@
 #!/bin/bash
-cp ~/Downloads/*azw3 /Volumes/Kindle/documents/
-mv ~/Downloads/*azw3 ~/.Trash/
+mv ~/Downloads/*azw3 /Volumes/Kindle/documents/
 diskutil eject /Volumes/Kindle
