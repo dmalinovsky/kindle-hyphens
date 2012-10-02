@@ -36,7 +36,7 @@ if __name__ == '__main__':
         sys.exit(1)
     input_file = sys.argv[1]
     output_file = sys.argv[2]
-    print 'Processing FB2 file %s...' % input_file,
+    print 'Processing %s...' % input_file,
     sys.stdout.flush()
     dom = parse_xml(input_file)
     with codecs.open(output_file, encoding='utf-8', mode='w') as f:
