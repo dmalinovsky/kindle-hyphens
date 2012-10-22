@@ -3,4 +3,4 @@ cd ~/Downloads/
 find . -name '*fb2.zip' -exec unzip {} \;
 find . -name '*fb2.zip' -exec mv {} ~/.Trash/ \;
 find . -name '*.fb2' -exec ~/projects/fb2-hyphens/main.py {} {} \;
-find . -name '*.fb2' -exec ebook-convert {} {}.azw3 \; -delete
+find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --toc-title Содержание \; -delete

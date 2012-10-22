@@ -1,3 +1,3 @@
 #!/bin/bash
-mv ~/Downloads/*azw3 /Volumes/Kindle/documents/
+mv ~/Downloads/*.{azw3,mobi} /Volumes/Kindle/documents/
 diskutil eject /Volumes/Kindle
