@@ -1,6 +1,11 @@
 #!/bin/bash
 cd ~/Downloads/
+# Unzip zipped FB2 files
 find . -name '*fb2.zip' -exec unzip {} \;
 find . -name '*fb2.zip' -exec mv {} ~/.Trash/ \;
+# Add hyphens into FB2
 find . -name '*.fb2' -exec ~/projects/fb2-hyphens/main.py {} {} \;
-find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --toc-title Содержание \; -delete
+# Convert to AZW3
+find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --toc-title Содержание \;
+# Change AZW3 title to include optional series
+find . -name '*.fb2' -exec ~/projects/fb2-hyphens/append_series.py {} \; -delete
