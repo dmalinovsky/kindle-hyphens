@@ -42,7 +42,7 @@ To extract FB2 meta-data ebook-meta calibre script is used.""" % sys.argv[0]
     input_file = sys.argv[1]
     meta = extract_meta(input_file)
     if not META_SERIES in meta or not META_SERIES_INDEX in meta or \
-        int(meta[META_SERIES_INDEX] <= 0):
+        int(meta[META_SERIES_INDEX]) <= 0:
         print 'Found no series meta data in %s' % input_file
         sys.exit(0)
 
