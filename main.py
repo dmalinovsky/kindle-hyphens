@@ -7,20 +7,37 @@ is supported.
 import codecs
 import sys
 from xml.dom.minidom import parse
-from hyphenator import hyphenate_word
+from hyphenator import Hyphenator
 
 SOFT_HYPHEN = u'\u00AD'
 
 def parse_xml(input_file):
     dom = parse(input_file)
-    for tag in ('p', 'v'):
+    # Fallback language is Russian ;)
+    lang = detect_language(dom) or 'ru'
+    hyphenator = Hyphenator(lang)
+    for tag in ('p', 'v', 'text-author'):
         for node in dom.getElementsByTagName(tag):
-            insert_hyphens(node)
+            insert_hyphens(node, hyphenator)
     return dom
 
-def insert_hyphens(node):
+def detect_language(dom):
+    node = dom.getElementsByTagName('lang')
+    if not node:
+        return False
+    node = node[0].childNodes
+    if not node:
+        return False
+    node = node[0]
     if node.nodeType == node.TEXT_NODE:
-        new_data = ' '.join([hyphenate_word(w, SOFT_HYPHEN) for w in node.data.split()])
+        return node.data
+    else:
+        return False
+
+def insert_hyphens(node, hyphenator):
+    if node.nodeType == node.TEXT_NODE:
+        new_data = ' '.join([hyphenator.hyphenate_word(w, SOFT_HYPHEN)
+            for w in node.data.split()])
         # Spaces are trimmed, we have to add them manually back
         if node.data.startswith(' '):
             new_data = ' ' + new_data
@@ -28,7 +45,7 @@ def insert_hyphens(node):
             new_data += ' '
         node.data = new_data
     for child in node.childNodes:
-        insert_hyphens(child)
+        insert_hyphens(child, hyphenator)
 
 if __name__ == '__main__':
     if len(sys.argv) <= 2:
