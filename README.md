@@ -12,7 +12,7 @@ The hyphens will work in Kindle Keyboard and newer readers
 [with the lastest software updates](http://www.amazon.com/gp/help/customer/display.html/ref=hp_200127470_software?nodeId=200529680).
 Search and dictionary lookup will look correctly.
 
-Russian, English and German (new orthography) hyphenation patters are supported.
+Russian, Ukranian, English and German hyphenation patters are supported.
 
 You can also check out `append_series.py` script, which appends FB2 series
 number and title to Kindle book title.
@@ -34,8 +34,7 @@ bash-скрипт `fb2mobi.sh.example`.  Его следует переимен�
 прошивки](http://www.amazon.com/gp/help/customer/display.html/ref=hp_200127470_software?nodeId=200529680).
 Поиск и использование словаря будут продолжать нормально работать.
 
-Поддерживаются правила переносов для русского, английского и немецкого (новая
-орфография) языков.
+Поддерживаются правила переносов для русского, украинского, английского и немецкого языков.
 
 Также может быть полезен скрипт `append_series.py`, который добавляет номер
 книги в серии и саму серию в заголовок файла для Kindle.
