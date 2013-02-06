@@ -5,46 +5,42 @@ Kindle format to enable hyphenation.  Russian and English hyphenation
 is supported.
 """
 import codecs
+from lxml import etree
 import sys
-from xml.dom.minidom import parse
+
 from hyphenator import Hyphenator
 
 SOFT_HYPHEN = u'\u00AD'
 
 def parse_xml(input_file):
-    dom = parse(input_file)
+    dom = etree.parse(input_file, parser=etree.XMLParser(recover=True))
     # Fallback language is Russian ;)
     lang = detect_language(dom) or 'ru'
     hyphenator = Hyphenator(lang)
     for tag in ('p', 'v', 'text-author'):
-        for node in dom.getElementsByTagName(tag):
+        for node in dom.xpath("//*[local-name() = '%s']" % tag):
             insert_hyphens(node, hyphenator)
     return dom
 
 def detect_language(dom):
-    node = dom.getElementsByTagName('lang')
-    if not node:
-        return False
-    node = node[0].childNodes
-    if not node:
-        return False
-    node = node[0]
-    if node.nodeType == node.TEXT_NODE:
-        return node.data
-    else:
-        return False
+    nodes = dom.xpath("//*[local-name() = 'lang']")
+    return nodes[0].text if nodes else False
 
 def insert_hyphens(node, hyphenator):
-    if node.nodeType == node.TEXT_NODE:
+    for attr in ('text', 'tail'):
+        text = getattr(node, attr)
+        if not text:
+            continue
         new_data = ' '.join([hyphenator.hyphenate_word(w, SOFT_HYPHEN)
-            for w in node.data.split()])
+            for w in text.split()])
         # Spaces are trimmed, we have to add them manually back
-        if node.data.startswith(' '):
+        if text.startswith(' '):
             new_data = ' ' + new_data
-        if node.data.endswith(' '):
+        if text.endswith(' '):
             new_data += ' '
-        node.data = new_data
-    for child in node.childNodes:
+        setattr(node, attr, new_data)
+
+    for child in node.iterchildren():
         insert_hyphens(child, hyphenator)
 
 if __name__ == '__main__':
@@ -56,6 +52,7 @@ if __name__ == '__main__':
     print 'Processing %s...' % input_file,
     sys.stdout.flush()
     dom = parse_xml(input_file)
-    with codecs.open(output_file, encoding='utf-8', mode='w') as f:
-        dom.writexml(f, encoding='utf-8')
+    with codecs.open(output_file, mode='w') as f:
+        f.write(etree.tostring(dom.getroot(), encoding='UTF-8',
+            xml_declaration=True))
     print 'Done.'
