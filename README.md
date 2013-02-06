@@ -14,6 +14,9 @@ Search and dictionary lookup will look correctly.
 
 Russian, Ukranian, English and German hyphenation patters are supported.
 
+To install script dependencies run `python setup.py develop` or `pip
+install -r requirements.txt`.
+
 You can also check out `append_series.py` script, which appends FB2 series
 number and title to Kindle book title.
 
@@ -35,6 +38,8 @@ bash-скрипт `fb2mobi.sh.example`.  Его следует переимен�
 Поиск и использование словаря будут продолжать нормально работать.
 
 Поддерживаются правила переносов для русского, украинского, английского и немецкого языков.
+
+Необходимые пакеты устанавливаются с помощью команды `python setup.py develop` или `pip install -r requirements.txt`.
 
 Также может быть полезен скрипт `append_series.py`, который добавляет номер
 книги в серии и саму серию в заголовок файла для Kindle.
