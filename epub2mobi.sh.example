@@ -1,0 +1,7 @@
+#!/bin/bash
+cd ~/Downloads/
+# Add hyphens into epub
+find . -name '*.epub' -exec calibre-debug -e ~/projects/fb2-hyphens/main.py {} {} \;
+# Convert to AZW3
+find . -name '*.epub' -exec ebook-convert {} {}.azw3 --toc-title Содержание \;
+
