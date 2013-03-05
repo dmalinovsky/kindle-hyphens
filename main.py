@@ -31,6 +31,9 @@ def detect_language(dom):
     return nodes[0].text if nodes else False
 
 def insert_hyphens(node, hyphenator):
+    if isinstance(node, etree._Entity):
+        # Don't process HTML entities
+        return
     for attr in ('text', 'tail'):
         text = getattr(node, attr)
         if not text:
@@ -58,7 +61,6 @@ def process_epub_file(container):
         dom = etree.XML(html, parser=etree.XMLParser(recover=True))
 
         # Detect language
-        # OPS/content.opf <dc:language>
         language = container.opf.xpath("//*[local-name() = 'language']")[0]
         dom = process_dom(dom, language.text)
         new_html = etree.tostring(dom, encoding='UTF-8', xml_declaration=True)
