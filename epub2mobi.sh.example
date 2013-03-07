@@ -4,4 +4,5 @@ cd ~/Downloads/
 find . -name '*.epub' -exec calibre-debug -e ~/projects/kindle-hyphens/main.py {} {} \;
 # Convert to AZW3
 find . -name '*.epub' -exec ebook-convert {} {}.azw3 --toc-title Содержание \;
-
+# Move originals to Trash
+find . -name '*.epub' -exec mv {} ~/.Trash/ \;
