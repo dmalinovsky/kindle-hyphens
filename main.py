@@ -31,19 +31,20 @@ def detect_language(dom):
     return nodes[0].text if nodes else False
 
 def insert_hyphens(node, hyphenator):
+    textattrs = ('text', 'tail')
     if isinstance(node, etree._Entity):
-        # Don't process HTML entities
-        return
-    for attr in ('text', 'tail'):
+        # HTML entities have no .text
+        textattrs = ('tail',)
+    for attr in textattrs:
         text = getattr(node, attr)
         if not text:
             continue
         new_data = ' '.join([hyphenator.hyphenate_word(w, SOFT_HYPHEN)
             for w in text.split()])
         # Spaces are trimmed, we have to add them manually back
-        if text.startswith(' '):
+        if text[0].isspace():
             new_data = ' ' + new_data
-        if text.endswith(' '):
+        if text[-1].isspace():
             new_data += ' '
         setattr(node, attr, new_data)
 
