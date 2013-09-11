@@ -1,4 +1,4 @@
 #!/bin/bash
 ~/fb2mobi.sh
-mv ~/Downloads/*.{azw3,mobi} /Volumes/Kindle/documents/
+mv ~/Downloads/*.{azw,azw3,mobi} /Volumes/Kindle/documents/
 diskutil eject /Volumes/Kindle

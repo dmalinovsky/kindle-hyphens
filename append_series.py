@@ -14,6 +14,8 @@ META_TITLE = 'dc:title'
 MOBI_FILE_TEMPLATE = '%s.azw3'
 TITLE_TEMPLATE = '[%(index)02d] %(title)s (%(series)s)'
 
+MAX_VALID_INDEX = 100
+
 
 def extract_meta(fb2_file):
     (_, meta_file) = tempfile.mkstemp()
@@ -44,6 +46,10 @@ To extract FB2 meta-data ebook-meta calibre script is used.""" % sys.argv[0]
     if not META_SERIES in meta or not META_SERIES_INDEX in meta or \
         int(meta[META_SERIES_INDEX]) <= 0:
         print 'Found no series meta data in %s' % input_file
+        sys.exit(0)
+    index = int(meta[META_SERIES_INDEX])
+    if index >= MAX_VALID_INDEX:
+        print 'Index is too big: %d' % index
         sys.exit(0)
 
     subprocess.check_call(['ebook-meta', MOBI_FILE_TEMPLATE % input_file,
