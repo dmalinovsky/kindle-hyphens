@@ -61,7 +61,7 @@ class Hyphenator:
         buf = u''
         word += u'$'
         for c in word:
-            # Split URls: example.com/-test/-page.html
+            # Split URLs: example.com/-test/-page.html
             if c.isalpha() or (c == u'/' and buf):
                 buf += c
             else:

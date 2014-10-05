@@ -14,7 +14,7 @@ META_TITLE = 'dc:title'
 MOBI_FILE_TEMPLATE = '%s.azw3'
 TITLE_TEMPLATE = '[%(index)02d] %(title)s (%(series)s)'
 
-MAX_VALID_INDEX = 30
+MAX_VALID_INDEX = 15
 
 
 def extract_meta(fb2_file):
