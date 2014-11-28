@@ -39,6 +39,10 @@ def insert_hyphens(node, hyphenator):
         text = getattr(node, attr)
         if not text:
             continue
+        if SOFT_HYPHEN in text:
+            # Don't hyphenate twice
+            print 'Skipping already hyphenated text...'
+            return
         new_data = ' '.join([hyphenator.hyphenate_word(w, SOFT_HYPHEN)
             for w in text.split()])
         # Spaces are trimmed, we have to add them manually back
