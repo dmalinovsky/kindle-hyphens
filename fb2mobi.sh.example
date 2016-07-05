@@ -6,6 +6,6 @@ find . -name '*fb2.zip' -exec mv {} ~/.Trash/ \;
 # Add hyphens into FB2
 find . -name '*.fb2' -exec ~/projects/kindle-hyphens/main.py {} {} \;
 # Convert to AZW3
-find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --share-not-sync --toc-title Содержание \;
+find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --share-not-sync --output-profile=kindle_voyage --no-inline-fb2-toc \;
 # Change AZW3 title to include optional series
 find . -name '*.fb2' -exec ~/projects/kindle-hyphens/append_series.py {} \; -delete
