@@ -3,7 +3,7 @@ cd ~/Downloads/
 # Add hyphens into epub
 find . -name '*.epub' -exec calibre-debug -e ~/projects/kindle-hyphens/main.py {} {} \;
 # Convert to AZW3
-find . -name '*.epub' -execdir ~/projects/kinglegen/kindlegen -c2 -dont_append_source {} -o `basename {}`.mobi \;
-#find . -name '*.epub' -exec ebook-convert {} {}.azw3 --output-profile kindle_voyage --share-not-sync --toc-title Содержание --remove-paragraph-spacing --change-justification justify \;
+find . -name '*.epub' -execdir ~/projects/kindlegen/kindlegen -c2 -dont_append_source {} -o `basename {}`.mobi \;
+#find . -name '*.epub' -exec ebook-convert {} {}.azw3 --language rus --output-profile kindle_oasis --share-not-sync --toc-title Содержание --remove-paragraph-spacing --change-justification justify \;
 # Move originals to Trash
 find . -name '*.epub' -exec mv {} ~/.Trash/ \;

@@ -21,7 +21,7 @@ def extract_meta(fb2_file):
     (_, meta_file) = tempfile.mkstemp()
 
     try:
-        subprocess.check_call(['ebook-meta', fb2_file,
+        subprocess.check_call(['/Applications/calibre.app/Contents/MacOS/ebook-meta', fb2_file,
             '--to-opf=%s' % meta_file])
         dom = parse(meta_file)
     finally:

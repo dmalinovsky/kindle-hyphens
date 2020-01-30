@@ -1,9 +1,10 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2.7
 """
 Insert soft hyphens into FB2 file.  Later this file can be converted into
 Kindle format to enable hyphenation.  Russian and English hyphenation
 is supported.
 """
+from __future__ import print_function
 import codecs
 from lxml import etree
 import os
@@ -41,7 +42,7 @@ def insert_hyphens(node, hyphenator):
             continue
         if SOFT_HYPHEN in text:
             # Don't hyphenate twice
-            print 'Skipping already hyphenated text...'
+            print('Skipping already hyphenated text...')
             return
         new_data = ' '.join([hyphenator.hyphenate_word(w, SOFT_HYPHEN)
             for w in text.split()])
@@ -57,7 +58,7 @@ def insert_hyphens(node, hyphenator):
 
 def process_epub_file(container):
     if container.is_drm_encrypted():
-        print 'ERROR - cannot remove unused images from DRM encrypted book'
+        print('ERROR - cannot remove unused images from DRM encrypted book')
         return False
 
     dirtied = False
@@ -98,16 +99,16 @@ def process_epub(input_file, output_file):
 
 if __name__ == '__main__':
     if len(sys.argv) <= 2:
-        print """Usage: %s input_file output_file
-        FB2 and ePub formats are supported.""" % sys.argv[0]
+        print( """Usage: %s input_file output_file
+        FB2 and ePub formats are supported.""" % sys.argv[0])
         sys.exit(1)
     input_file = sys.argv[1]
     output_file = sys.argv[2]
     (_, ext) = os.path.splitext(input_file.lower())
     if ext not in ('.epub', '.fb2'):
-        print 'Only ePub and FB2 formats are supported'
+        print('Only ePub and FB2 formats are supported')
         sys.exit(1)
-    print 'Processing %s...' % input_file,
+    print('Processing %s...' % input_file,)
     sys.stdout.flush()
     if ext == '.fb2':
         dom = parse_xml(input_file)
@@ -116,4 +117,4 @@ if __name__ == '__main__':
                 xml_declaration=True))
     else:
         process_epub(input_file, output_file)
-    print 'Done.'
+    print('Done.')
