@@ -6,7 +6,7 @@ mv *.fb2.zip ~/.Trash
 # Add hyphens into FB2
 #find . -name '*.fb2' -exec ~/projects/kindle-hyphens/main.py {} {} \;
 # Convert to AZW3
-find . -name '*.fb2' -exec /Applications/calibre.app/Contents/MacOS/ebook-convert {} {}.azw3 --share-not-sync --no-inline-fb2-toc \;
+find . -name '*.fb2' -exec ebook-convert {} {}.azw3 --share-not-sync --output-profile=kindle_oasis --no-inline-fb2-toc \;
 # Change AZW3 title to include optional series
 find . -name '*.fb2' -exec ~/projects/kindle-hyphens/append_series.py {} \;
 mv *.fb2 ~/.Trash
